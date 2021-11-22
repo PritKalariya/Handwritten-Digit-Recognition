@@ -5,34 +5,38 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 
 
-# Load the dataset directly from the tf module
-# mnist = tf.keras.datasets.mnist
+# Decide if to load an existing model or to train a new one
+train_new_model = True
 
-# # Pre-Processing
-# # Split train test
-# (X_train, y_train), (X_test, y_test) = mnist.load_data()
+if train_new_model:
+    # Load the dataset directly from the tf module
+    mnist = tf.keras.datasets.mnist
 
-# # Normalising
-# X_train = tf.keras.utils.normalize(X_train, axis=1)
-# X_test = tf.keras.utils.normalize(X_test, axis=1)
+    # Pre-Processing
+    # Split train test
+    (X_train, y_train), (X_test, y_test) = mnist.load_data()
 
-# # Modeling
-# model = tf.keras.models.Sequential()
-# model.add(tf.keras.layers.Flatten(input_shape=(28, 28)))
-# model.add(tf.keras.layers.Dense(128, activation='relu'))
-# model.add(tf.keras.layers.Dense(128, activation='relu'))
-# model.add(tf.keras.layers.Dense(10, activation='softmax'))
+    # Normalising
+    X_train = tf.keras.utils.normalize(X_train, axis=1)
+    X_test = tf.keras.utils.normalize(X_test, axis=1)
 
-# # Complie
-# model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+    # Modeling
+    model = tf.keras.models.Sequential()
+    model.add(tf.keras.layers.Flatten(input_shape=(28, 28)))
+    model.add(tf.keras.layers.Dense(128, activation='relu'))
+    model.add(tf.keras.layers.Dense(128, activation='relu'))
+    model.add(tf.keras.layers.Dense(10, activation='softmax'))
 
-# # Fit the model
-# model.fit(X_train, y_train, epochs=3)
+    # Complie
+    model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
-# model.save('handwritten_digits.model')
+    # Fit the model
+    model.fit(X_train, y_train, epochs=3)
 
-# Laod the model
-model = tf.keras.models.load_model('handwritten_digits.model')
+    model.save('handwritten_digits.model')
+else:
+    # Laod the model
+    model = tf.keras.models.load_model('handwritten_digits.model')
 
 
 # Evaluate the model
